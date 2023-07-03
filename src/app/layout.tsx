@@ -6,9 +6,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
 	title: 'Google',
-	description: 'Search the world\'s information, including webpages, images, videos and more.',
+	description:
+		"Search the world's information, including webpages, images, videos and more.",
 	icons: {
-		icon: '/favicon.svg',
+		icon: '/favicon.ico',
 	},
 };
 
