@@ -2,9 +2,11 @@ import { SearchResult } from '@/app/interfaces/SearchResult';
 import WebSearchResults from '@/components/WebSearchResults';
 import Link from 'next/link';
 
-async function search(term: string): Promise<SearchResult> {
+async function search(term: string, index: string): Promise<SearchResult> {
 	const res = await fetch(
-		`https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CTX_KEY}&q=${term}`
+		`https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${
+			process.env.CTX_KEY
+		}&q=${term}&start=${index || 1}`
 	);
 	if (!res.ok) {
 		throw new Error('Something went wrong');
@@ -16,9 +18,9 @@ async function search(term: string): Promise<SearchResult> {
 export default async function WebSearchPage({
 	searchParams,
 }: {
-	searchParams: { searchTerm: string };
+	searchParams: { searchTerm: string; start: string };
 }) {
-	const results = await search(searchParams.searchTerm);
+	const results = await search(searchParams.searchTerm, searchParams.start);
 
 	if (!results) {
 		return (

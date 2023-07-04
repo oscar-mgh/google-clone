@@ -2,6 +2,7 @@ import { ImageSearchResult } from '@/app/interfaces/ImageSearchResult';
 import { Item } from '../app/interfaces/ImageSearchResult';
 import Link from 'next/link';
 import Parser from 'html-react-parser';
+import PaginationButtons from './PaginationButtons';
 
 export default function ImageSearchResults({
 	results,
@@ -9,7 +10,7 @@ export default function ImageSearchResults({
 	results: ImageSearchResult;
 }) {
 	return (
-		<div className="pb-24 mt-4">
+		<div className="pb-40 sm:pb-24 mt-4">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-3 space-x-4">
 				{results.items.map((result: Item) => (
 					<div className="mb-8" key={result.link}>
@@ -37,6 +38,9 @@ export default function ImageSearchResults({
 					</div>
 				))}
 			</div>
+            <div className="ml-16">
+                <PaginationButtons />
+            </div>
 		</div>
 	);
 }

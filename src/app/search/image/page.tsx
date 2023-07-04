@@ -2,9 +2,11 @@ import { ImageSearchResult } from '@/app/interfaces/ImageSearchResult';
 import ImageSearchResults from '@/components/ImageSearchResults';
 import Link from 'next/link';
 
-async function search(term: string): Promise<ImageSearchResult> {
+async function search(term: string, index: string): Promise<ImageSearchResult> {
 	const res = await fetch(
-		`https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CTX_KEY}&q=${term}&searchType=image`
+		`https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${
+			process.env.CTX_KEY
+		}&q=${term}&searchType=image&start=${index || 1}`
 	);
 	if (!res.ok) {
 		throw new Error('Something went wrong');
@@ -16,9 +18,10 @@ async function search(term: string): Promise<ImageSearchResult> {
 export default async function ImageSearchPage({
 	searchParams,
 }: {
-	searchParams: { searchTerm: string };
+	searchParams: { searchTerm: string; start: string };
 }) {
-	const results = await search(searchParams.searchTerm);
+	const startIndex = searchParams.start;
+	const results = await search(searchParams.searchTerm, startIndex);
 
 	if (!results) {
 		return (
