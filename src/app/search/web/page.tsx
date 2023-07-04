@@ -1,4 +1,4 @@
-import { Item, SearchResult } from '@/app/interfaces/SearchResult';
+import { SearchResult } from '@/app/interfaces/SearchResult';
 import WebSearchResults from '@/components/WebSearchResults';
 import Link from 'next/link';
 
